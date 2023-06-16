@@ -1,7 +1,66 @@
-import React from "react";
+const Student = require("../model/Student");
 
-function studentsController() {
-  return <div>studentsController</div>;
-}
+const getAllStudents = async (req, res) => {
+  try {
+    const students = await Student.find();
+    res.status(200).json(students);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+};
 
-export default studentsController;
+const getSingleStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const singleStudent = await Student.findById(id);
+    res.status(200).json(singleStudent);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+};
+
+const createStudent = async (req, res) => {
+  try {
+    const {
+      email,
+      firstName,
+      lastName,
+      age,
+      gender,
+      language: { motherLangue, desiredLanguage },
+      profilePicture,
+      userName,
+      paswword,
+      nationality,
+      country,
+      description,
+      interests,
+    } = req.body;
+    const newSStudent = await Student.create({
+      email,
+      firstName,
+      lastName,
+      age,
+      gender,
+      language: {
+        motherLangue,
+        desiredLanguage,
+      },
+      profilePicture,
+      userName,
+      paswword,
+      nationality,
+      country,
+      description,
+      interests,
+    });
+    res.status(201).send(`${newStudent.name} has been created!`);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+};
+
+module.exports = { getAllStudents, getSingleStudent, createStudent };
