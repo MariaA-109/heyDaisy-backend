@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 
-const db = async (req, res) => {
+const uri = process.env.MONGODB_URI;
+
+const db = async (res) => {
   try {
-    const URI = process.env.MONGODB_URI;
-    mongoose.set("strictQuery", true);
-    await mongoose.connect(URI);
-    console.log("Connected to DB");
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Could not connect to DB");
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
+    res.status(500).send("Failed to connect to MongoDB");
   }
 };
 
