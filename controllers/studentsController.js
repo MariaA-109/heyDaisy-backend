@@ -6,7 +6,7 @@ const getAllStudents = async (req, res) => {
     res.status(200).json(students);
   } catch (err) {
     console.log(err);
-    res.status(500).send(err.message);
+    res.status(400).send(err.message);
   }
 };
 
@@ -29,7 +29,7 @@ const createStudent = async (req, res) => {
       lastName,
       age,
       gender,
-      language: { motherLangue, desiredLanguage },
+      language: { motherLanguage, desiredLanguage },
       profilePicture,
       userName,
       paswword,
@@ -38,19 +38,20 @@ const createStudent = async (req, res) => {
       description,
       interests,
     } = req.body;
-    const newSStudent = await Student.create({
+
+    const newStudent = await Student.create({
       email,
       firstName,
       lastName,
       age,
       gender,
       language: {
-        motherLangue,
+        motherLanguage,
         desiredLanguage,
       },
       profilePicture,
       userName,
-      paswword,
+      password,
       nationality,
       country,
       description,
