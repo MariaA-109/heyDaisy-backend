@@ -1,7 +1,8 @@
-import React from "react";
+const express = require("express");
+const router = express.Router();
 
-function user() {
-  return <div>user</div>;
-}
+const { getAllUsers } = require("../controllers/users");
 
-export default user;
+router.route("/auth/users").get(getAllUsers);
+
+module.exports = router;

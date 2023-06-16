@@ -1,7 +1,20 @@
-import React from "react";
+const mongoose = require("mongoose");
 
-function user() {
-  return <div>user</div>;
-}
+const { Schema } = mongoose;
+const User = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  language: {
+    type: String,
+    require: true,
+  },
+});
 
-export default user;
+module.exports = mongoose.model("User", User);
