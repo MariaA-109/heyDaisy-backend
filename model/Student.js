@@ -37,10 +37,10 @@ const Student = new Schema({
       type: String,
       required: true,
     },
-  },
-  desiredLanguage: {
-    type: String,
-    required: true,
+    desiredLanguage: {
+      type: String,
+      required: true,
+    },
   },
   profilePicture: {
     type: String,
