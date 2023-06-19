@@ -38,7 +38,7 @@ const createStudent = async (req, res) => {
       description,
       interests,
     } = req.body;
-    const newSStudent = await Student.create({
+    const newStudent = await Student.create({
       email,
       firstName,
       lastName,
