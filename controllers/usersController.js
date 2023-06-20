@@ -28,7 +28,7 @@ const signUp = async (req, res) => {
     });
     res
       .status(201)
-      .send(`${newUser.name} has been created! You can log in now.`);
+      .send(`New user has been created! You can log in now.`);
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
@@ -50,7 +50,7 @@ const logIn = async (req, res) => {
       return res.status(404).send("Invalid password. Try again.");
     } else {
       //3. generate and send token as valid response
-      const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ _id: user.id }, `${process.env.JWT_SECRET_KEY}`);
       return res.status(200).send(token);
     }
   } catch (err) {
