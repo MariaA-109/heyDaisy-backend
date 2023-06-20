@@ -1,4 +1,4 @@
-const User = require("../model/User");
+const User = require("../model/User.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -26,9 +26,7 @@ const signUp = async (req, res) => {
       password: hashedPassword,
       language,
     });
-    res
-      .status(201)
-      .send(`New user has been created! You can log in now.`);
+    res.status(201).send(`New user has been created! You can log in now.`);
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
