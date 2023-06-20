@@ -6,7 +6,7 @@ const getAllStudents = async (req, res) => {
     res.status(200).json(students);
   } catch (err) {
     console.log(err);
-    res.status(400).send(err.message);
+    res.status(500).send(err.message);
   }
 };
 
@@ -24,30 +24,30 @@ const getSingleStudent = async (req, res) => {
 const createStudent = async (req, res) => {
   try {
     const {
+      language: { motherLanguage, desiredLanguage },
       email,
       firstName,
       lastName,
       age,
       gender,
-      language: { motherLanguage, desiredLanguage },
       profilePicture,
       userName,
-      paswword,
+      password,
       nationality,
       country,
       description,
       interests,
     } = req.body;
     const newStudent = await Student.create({
+      language: {
+        motherLanguage,
+        desiredLanguage,
+      },
       email,
       firstName,
       lastName,
       age,
       gender,
-      language: {
-        motherLanguage,
-        desiredLanguage,
-      },
       profilePicture,
       userName,
       password,
@@ -63,4 +63,65 @@ const createStudent = async (req, res) => {
   }
 };
 
-module.exports = { getAllStudents, getSingleStudent, createStudent };
+const updateStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      language: { motherLanguage, desiredLanguage },
+      email,
+      firstName,
+      lastName,
+      age,
+      gender,
+      profilePicture,
+      userName,
+      password,
+      nationality,
+      country,
+      description,
+      interests,
+    } = req.body;
+    const updatedStudent = await Student.findByIdAndUpdate(
+      id,
+      {
+        language: { motherLanguage, desiredLanguage },
+        email,
+        firstName,
+        lastName,
+        age,
+        gender,
+        profilePicture,
+        userName,
+        password,
+        nationality,
+        country,
+        description,
+        interests,
+      },
+      { new: true }
+    );
+    res.status(200).json(newStudent);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+};
+
+const deleteStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteStudent = await Student.findByIdAndDelete(id);
+    res.status(200).send(`${deletedStudent.name} has been deleted.`);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+};
+
+module.exports = {
+  getAllStudents,
+  getSingleStudent,
+  createStudent,
+  updateStudent,
+  deleteStudent,
+};

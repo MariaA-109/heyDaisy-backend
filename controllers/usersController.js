@@ -35,7 +35,7 @@ const signUp = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+const logIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     // 1. find user
@@ -59,4 +59,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers };
+module.exports = { getAllUsers, signUp, logIn };
