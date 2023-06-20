@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 
 const {
   getAllStudents,
@@ -7,9 +8,11 @@ const {
   updateStudent,
   deleteStudent,
 } = require("../controllers/studentsController");
-const router = express.Router();
 
-router.route("/students").get(getAllStudents).post(createStudent);
+const auth = require("../middlewares/auth");
+
+router.route("/students").get(auth, getAllStudents).post(auth, createStudent);
+//post auth??
 
 router
   .route("/students/:id")
