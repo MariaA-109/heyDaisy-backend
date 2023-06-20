@@ -9,15 +9,16 @@ const auth = async (req, res, next) => {
   }
 
   try {
-    const verified = jwt.verify(authtoken, proces.env.JWT_SECRET);
+    const verified = jwt.verify(authtoken, process.env.JWT_SECRET);
     console.log("verified", verified);
     next();
   } catch (err) {
     console.log(err);
-    if (err instanceof jwt.JsonWebTokenError) {
+    if (err instanceof Error && err.name === "JsonWebTokenError") {
       return res.status(401).send("No valid token");
     }
     res.status(500).send(err.message);
   }
 };
+
 module.exports = auth;
