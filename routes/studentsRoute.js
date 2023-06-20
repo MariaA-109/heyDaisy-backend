@@ -9,9 +9,9 @@ const {
   deleteStudent,
 } = require("../controllers/studentsController");
 
-const auth = require("../middlewares/auth");
+//const auth = require("../middlewares/auth");
 
-router.route("/students").get(auth, getAllStudents).post(auth, createStudent);
+router.route("/students").get(getAllStudents).post(createStudent);
 //post auth??
 
 router
