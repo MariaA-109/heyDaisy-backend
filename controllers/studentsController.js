@@ -38,7 +38,6 @@ const createStudent = async (req, res) => {
       description,
       interests,
     } = req.body;
-
     const newStudent = await Student.create({
       language: {
         motherLanguage,
