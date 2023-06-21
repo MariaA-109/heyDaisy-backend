@@ -15,6 +15,7 @@ const getAllUsers = async (req, res) => {
 const signUp = async (req, res) => {
   try {
     const { email, password, language } = req.body;
+
     //1. handle password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -26,6 +27,7 @@ const signUp = async (req, res) => {
       password: hashedPassword,
       language,
     });
+    console.log("body", req.body);
     res.status(201).send(`New user has been created! You can log in now.`);
   } catch (err) {
     console.log(err.message);
