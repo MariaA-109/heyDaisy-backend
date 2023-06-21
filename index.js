@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("./db");
 const studentsRouter = require("./routes/studentsRoute");
 const usersRouter = require("./routes/userRoute");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -47,8 +48,10 @@ db();
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cors());
-//
+
+app.use(cors());
+app.use(bodyParser.json());
+
 // routing middlewares
 app.use("/", studentsRouter, usersRouter);
 //

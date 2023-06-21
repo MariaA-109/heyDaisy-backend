@@ -15,7 +15,6 @@ const getAllUsers = async (req, res) => {
 const signUp = async (req, res) => {
   try {
     const { email, password, language } = req.body;
-
     //1. handle password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -35,7 +34,7 @@ const signUp = async (req, res) => {
   }
 };
 
-const logIn = async (req, res) => {
+const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     // 1. find user
@@ -59,4 +58,4 @@ const logIn = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, signUp, logIn };
+module.exports = { getAllUsers, signUp, signIn };
