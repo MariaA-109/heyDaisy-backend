@@ -4,7 +4,6 @@ const getAllStudents = async (req, res) => {
   try {
     const students = await Student.find();
     res.status(200).json(students);
-    console.log("populated User", students);
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);

@@ -62,5 +62,14 @@ const signIn = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+const deleteAllUsers = async (req, res) => {
+  try {
+    const deletedUsers = await User.deleteMany();
+    res.status(200).send(`All users have been deleted.`);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+};
 
-module.exports = { getAllUsers, signUp, signIn };
+module.exports = { getAllUsers, signUp, signIn, deleteAllUsers };
