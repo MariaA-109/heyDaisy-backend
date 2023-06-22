@@ -4,6 +4,7 @@ const getAllStudents = async (req, res) => {
   try {
     const students = await Student.find();
     res.status(200).json(students);
+    console.log("populated User", students);
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);
@@ -38,6 +39,7 @@ const createStudent = async (req, res) => {
       description,
       interests,
     } = req.body;
+
     const newStudent = await Student.create({
       language: {
         motherLanguage,

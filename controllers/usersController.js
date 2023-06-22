@@ -1,11 +1,13 @@
+const Student = require("../model/Student.js");
 const User = require("../model/User.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const getAllUsers = async (req, res) => {
   try {
-    const allUsers = await User.find();
+    const allUsers = await User.find().populate("studentDetails");
     res.status(200).json(allUsers);
+    console.log("populated Student", allUsers);
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
@@ -26,7 +28,10 @@ const signUp = async (req, res) => {
       password: hashedPassword,
       language,
     });
-    console.log("body", req.body);
+    //3. create student
+    const newStudent = await Student.create({
+      _id: newUser._id,
+    });
     res.status(201).send(`New user has been created! You can log in now.`);
   } catch (err) {
     console.log(err.message);
