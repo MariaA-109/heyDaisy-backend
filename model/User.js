@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const User = new Schema(
   {
-    studentDetails: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-    },
     email: {
       type: String,
       required: true,
@@ -15,10 +11,47 @@ const User = new Schema(
     password: {
       type: String,
       required: true,
+      select: false,
     },
     language: {
       type: String,
       require: true,
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
+    userName: {
+      type: String,
+    },
+    age: {
+      type: Number,
+    },
+    gender: {
+      type: String,
+    },
+
+    motherLanguage: {
+      type: String,
+    },
+
+    profilePicture: {
+      type: String,
+      // (get: v=> `${root}${v}`)
+    },
+    nationality: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    interests: {
+      type: String,
     },
   },
   { timestamps: true }

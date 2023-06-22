@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+/*const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
@@ -36,7 +36,7 @@ const Student = new Schema(
     },
     profilePicture: {
       type: String,
-      // (get: v=> `${root}${v}`)
+      (get: v=> `${root}${v}`)
       required: true,
     },
     nationality: {
@@ -59,3 +59,4 @@ const Student = new Schema(
   { timestamps: true }
 );
 module.exports = mongoose.model("Student", Student);
+*/

@@ -5,9 +5,8 @@ const jwt = require("jsonwebtoken");
 
 const getAllUsers = async (req, res) => {
   try {
-    const allUsers = await User.find().populate("studentDetails");
+    const allUsers = await User.find();
     res.status(200).json(allUsers);
-    console.log("populated Student", allUsers);
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
@@ -27,10 +26,6 @@ const signUp = async (req, res) => {
       email,
       password: hashedPassword,
       language,
-    });
-    //3. create student
-    const newStudent = await Student.create({
-      _id: newUser._id,
     });
     res.status(201).send(`New user has been created! You can log in now.`);
   } catch (err) {

@@ -1,5 +1,4 @@
-const Student = require("../model/Student");
-
+/*const Student = require("../model/Student");
 const getAllStudents = async (req, res) => {
   try {
     const students = await Student.find();
@@ -126,3 +125,4 @@ module.exports = {
   updateStudent,
   deleteStudent,
 };
+*/

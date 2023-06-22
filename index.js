@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const db = require("./db");
-const studentsRouter = require("./routes/studentsRoute");
 const usersRouter = require("./routes/userRoute");
 const bodyParser = require("body-parser");
 
@@ -53,7 +52,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // routing middlewares
-app.use("/", studentsRouter, usersRouter);
+app.use("/", usersRouter);
 //
 
 app.get("/", (req, res) => {
