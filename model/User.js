@@ -39,6 +39,7 @@ const User = new Schema(
 
     profilePicture: {
       type: String,
+      data: Buffer,
       // (get: v=> `${root}${v}`)
     },
     nationality: {
@@ -48,9 +49,6 @@ const User = new Schema(
       type: String,
     },
     description: {
-      type: String,
-    },
-    interests: {
       type: String,
     },
   },
