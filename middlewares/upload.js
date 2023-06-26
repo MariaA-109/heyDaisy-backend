@@ -4,11 +4,11 @@ const { v4: uuidv4 } = require("uuid");
 
 const firebaseUploader = multer({
   storage: FirebaseStorage({
-    bucketName: "heydaisy-9c85a.appspot.com",
+    bucketName: process.env.STORAGE_BUCKET_FIREBASE,
     credentials: {
-      clientEmail: process.env.CLIENT_EMAIL,
-      privateKey: process.env.PRIVATE_KEY,
-      projectId: process.env.PROJECT_ID,
+      clientEmail: process.env.CLIENT_EMAIL_FIREBASE,
+      privateKey: process.env.PRIVATE_KEY_FIREBASE,
+      projectId: process.env.PROJECT_ID_FIREBASE,
     },
     public: true,
     nameSuffix: `-${uuidv4()}`,
