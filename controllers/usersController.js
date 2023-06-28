@@ -1,6 +1,11 @@
+const admin = require("firebase-admin");
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 const User = require("../model/User.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -12,22 +17,52 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+//Upload image in Firebase///
+/*const uploadFileToFirebaseStorage = (file) => {
+  return new Promise((resolve, reject) => {
+    const bucket = admin.storage().bucket();
+    const filename = `${uuidv4()}-${file}`;
+    const fileDestination = `images/${filename}`;
+    const uploadStream = bucket.file(fileDestination).createWriteStream({
+      metadata: {
+        contentType: file,
+      },
+    });
+
+    uploadStream.on("error", (error) => {
+      reject(error);
+    });
+
+    uploadStream.on("finish", () => {
+      const imageUrl = `https://storage.googleapis.com/${bucket.name}/${fileDestination}`;
+      resolve(imageUrl);
+    });
+
+    uploadStream.end(file);
+  });
+};*/
+
+//Upload image in Firebase///
+
 const signUp = async (req, res) => {
   try {
     const { email, password, language, profilePicture } = req.body;
+    // const file = req.file;
     //1. handle password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     console.log("my password - hashed", hashedPassword);
 
-    //2. create user
+    // 2. Upload file to Firebase Storage and get the URL
+    /* const imageUrl = await uploadFileToFirebaseStorage(file);*/
+    //3. create user with imageUrl
     const newUser = await User.create({
       email,
       password: hashedPassword,
       language,
       profilePicture,
     });
-    res.status(201).send(`New user has been created! You can log in now.`);
+    res.status(201).json(newUser);
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
