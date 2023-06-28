@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 // routing middlewares
 app.use("/", usersRouter);
 //
+// Use the `upload` middleware to handle the file upload
 
 app.get("/", (req, res) => {
   res.send("heyDaisy!");

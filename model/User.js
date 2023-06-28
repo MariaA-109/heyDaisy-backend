@@ -39,8 +39,6 @@ const User = new Schema(
 
     profilePicture: {
       type: String,
-
-      // (get: v=> `${root}${v}`)
     },
     nationality: {
       type: String,
