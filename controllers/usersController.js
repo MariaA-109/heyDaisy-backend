@@ -46,6 +46,7 @@ const getAllUsers = async (req, res) => {
 
 const signUp = async (req, res) => {
   try {
+    console.log("req.body", req.body);
     const { email, password, language, profilePicture } = req.body;
     // const file = req.file;
     //1. handle password
@@ -62,6 +63,7 @@ const signUp = async (req, res) => {
       language,
       profilePicture,
     });
+    console.log("new user", newUser);
     res.status(201).json(newUser);
   } catch (err) {
     console.log(err.message);
@@ -74,18 +76,36 @@ const signIn = async (req, res) => {
     const { email, password } = req.body;
     // 1. find user
     const [user] = await User.find({ email });
-    if (!user)
+    if (!user) {
       return res
         .status(404)
         .send("User with this email does not exist. Please sign up first");
+    }
     //2. check password
     const validPass = await bcrypt.compare(password, user.password);
+
     if (!validPass) {
       return res.status(404).send("Invalid password. Try again.");
     } else {
       //3. generate and send token as valid response
       const token = jwt.sign({ _id: user.id }, `${process.env.JWT_SECRET_KEY}`);
-      return res.status(200).send(token);
+      return res.status(200).send({
+        token,
+        user,
+        //ALTERNATIV ohne Passwort:
+        // user: {
+        //   email: user.email,
+        //   language: user.language,
+        //   firstName: user.firstName,
+        //   age: user.age,
+        //   gender: user.gender,
+        //   motherLanguage: user.motherLanguage,
+        //   profilePicture: user.profilePicture,
+        //   nationality: user.nationality,
+        //   country: user.country,
+        //   description: user.description,
+        // },
+      });
     }
   } catch (err) {
     console.log(err.message);

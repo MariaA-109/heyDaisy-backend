@@ -11,7 +11,7 @@ const User = new Schema(
     password: {
       type: String,
       required: true,
-      select: false,
+      // select: false,
     },
     language: {
       type: String,

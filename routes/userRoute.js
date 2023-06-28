@@ -9,7 +9,7 @@ const {
   deleteUser,
   deleteAllUsers,
 } = require("../controllers/usersController");
-//const auth = require("../middlewares/auth");
+const auth = require("../middlewares/auth");
 const firebaseUploader = require("../middlewares/upload");
 
 router.route("/users").get(getAllUsers);
