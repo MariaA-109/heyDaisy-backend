@@ -13,12 +13,12 @@ const {
 const auth = require("../middlewares/auth");
 const firebaseUploader = require("../middlewares/upload");
 
-router.route("/users").get(getAllUsers);
+router.route("/users").get(getAllUsers).delete(deleteAllUsers);
 router.route("/auth/signup").post(firebaseUploader.single("image"), signUp);
 router.route("/auth/signin").post(signIn);
-router.route("/users").delete(deleteAllUsers);
+
 router
-  .route("/users/:_id")
+  .route("/users/:id")
   .get(getSingleUser)
   .put(updateUser)
   .delete(deleteUser);

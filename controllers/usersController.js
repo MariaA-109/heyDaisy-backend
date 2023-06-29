@@ -45,6 +45,7 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
+  console.log("req body sign in", req.body);
   try {
     const { email, password } = req.body;
     // 1. find user
@@ -88,9 +89,9 @@ const signIn = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
   try {
-    const { _id } = req.params;
-    const singleStudent = await Student.findById(_id);
-    res.status(200).json(singleStudent);
+    const { id } = req.params;
+    const singleUser = await User.findById(id);
+    res.status(200).json(singleUser);
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);
@@ -99,10 +100,10 @@ const getSingleUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { _id } = req.params;
+    const { id } = req.params;
     const {
       email,
-      password,
+      // password,
       language,
       firstName,
       lastName,
@@ -115,11 +116,12 @@ const updateUser = async (req, res) => {
       country,
       description,
     } = req.body;
+
     const updatedUser = await User.findByIdAndUpdate(
-      _id,
+      id,
       {
         email,
-        password,
+        // password,
         language,
         firstName,
         lastName,
