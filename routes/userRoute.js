@@ -5,6 +5,7 @@ const {
   getAllUsers,
   signUp,
   signIn,
+  getSingleUser,
   updateUser,
   deleteUser,
   deleteAllUsers,
@@ -16,6 +17,10 @@ router.route("/users").get(getAllUsers);
 router.route("/auth/signup").post(firebaseUploader.single("image"), signUp);
 router.route("/auth/signin").post(signIn);
 router.route("/users").delete(deleteAllUsers);
-router.route("/users/:_id").put(updateUser).delete(deleteUser);
+router
+  .route("/users/:_id")
+  .get(getSingleUser)
+  .put(updateUser)
+  .delete(deleteUser);
 
 module.exports = router;
