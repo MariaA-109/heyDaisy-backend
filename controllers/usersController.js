@@ -17,33 +17,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-//Upload image in Firebase///
-/*const uploadFileToFirebaseStorage = (file) => {
-  return new Promise((resolve, reject) => {
-    const bucket = admin.storage().bucket();
-    const filename = `${uuidv4()}-${file}`;
-    const fileDestination = `images/${filename}`;
-    const uploadStream = bucket.file(fileDestination).createWriteStream({
-      metadata: {
-        contentType: file,
-      },
-    });
-
-    uploadStream.on("error", (error) => {
-      reject(error);
-    });
-
-    uploadStream.on("finish", () => {
-      const imageUrl = `https://storage.googleapis.com/${bucket.name}/${fileDestination}`;
-      resolve(imageUrl);
-    });
-
-    uploadStream.end(file);
-  });
-};*/
-
-//Upload image in Firebase///
-
 const signUp = async (req, res) => {
   try {
     console.log("req.body", req.body);
@@ -109,6 +82,17 @@ const signIn = async (req, res) => {
     }
   } catch (err) {
     console.log(err.message);
+    res.status(500).send(err.message);
+  }
+};
+
+const getSingleUser = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const singleStudent = await Student.findById(_id);
+    res.status(200).json(singleStudent);
+  } catch (err) {
+    console.log(err);
     res.status(500).send(err.message);
   }
 };
@@ -182,6 +166,7 @@ module.exports = {
   getAllUsers,
   signUp,
   signIn,
+  getSingleUser,
   updateUser,
   deleteUser,
   deleteAllUsers,
