@@ -37,6 +37,10 @@ const User = new Schema(
       type: String,
     },
 
+    videoLink: {
+      type: String,
+    },
+
     profilePicture: {
       type: String,
     },
